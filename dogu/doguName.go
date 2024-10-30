@@ -10,6 +10,11 @@ import (
 type SimpleDoguName string
 type DoguNamespace string
 
+// String returns the string representation of the SimpleDoguName.
+func (s SimpleDoguName) String() string {
+	return string(s)
+}
+
 type QualifiedDoguVersion struct {
 	Name    QualifiedDoguName
 	Version core.Version
