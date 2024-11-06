@@ -1,6 +1,6 @@
 module github.com/cloudogu/ces-commons-lib
 
-go 1.22.2
+go 1.23
 
 require (
 	github.com/cloudogu/cesapp-lib v0.14.2
