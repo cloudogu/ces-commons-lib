@@ -33,11 +33,15 @@ func NewQualifiedName(namespace Namespace, simpleName SimpleName) (QualifiedName
 	return doguName, nil
 }
 
-func NewQualifiedVersion(name QualifiedName, version core.Version) QualifiedVersion {
+func NewQualifiedVersion(name QualifiedName, version core.Version) (QualifiedVersion, error) {
+	err := name.Validate()
+	if err != nil {
+		return QualifiedVersion{}, err
+	}
 	return QualifiedVersion{
 		Name:    name,
 		Version: version,
-	}
+	}, nil
 }
 
 func (name QualifiedName) Validate() error {
