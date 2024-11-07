@@ -6,12 +6,10 @@ import (
 	"github.com/cloudogu/cesapp-lib/core"
 )
 
-//nolint:unused
-//goland:noinspection GoUnusedType
+//goland:noinspection GoUnusedGlobalVariable
 var ErrDescriptorNotFound = errors.New("no DoguDescriptor found for that dogu")
 
-//nolint:unused
-//goland:noinspection GoUnusedType
+//goland:noinspection GoUnusedGlobalVariable
 var ErrConnection = errors.New("there are some connection issues")
 
 type RemoteDoguDescriptorRepository interface {
