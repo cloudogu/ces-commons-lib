@@ -2,15 +2,8 @@ package dogu
 
 import (
 	"context"
-	"errors"
 	"github.com/cloudogu/cesapp-lib/core"
 )
-
-//goland:noinspection GoUnusedGlobalVariable
-var ErrDescriptorNotFound = errors.New("no DoguDescriptor found for that dogu")
-
-//goland:noinspection GoUnusedGlobalVariable
-var ErrConnection = errors.New("there are some connection issues")
 
 type RemoteDoguDescriptorRepository interface {
 	// GetLatest returns the dogu descriptor for a dogu from the remote server.
