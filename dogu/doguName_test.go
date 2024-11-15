@@ -58,51 +58,28 @@ func TestQualifiedNameFromString(t *testing.T) {
 }
 
 func TestNewQualifiedVersion(t *testing.T) {
+	testVersion1, err := core.ParseVersion("1.0.0")
+	require.NoError(t, err)
+
 	tests := []struct {
 		name          string
 		qualifiedDogu QualifiedName
-		version       func(t *testing.T) core.Version
-		want          func(t *testing.T) QualifiedVersion
+		version       core.Version
+		want          QualifiedVersion
 		wantErr       assert.ErrorAssertionFunc
 	}{
 		{
 			name:          "create QualifiedVersion",
 			qualifiedDogu: QualifiedName{SimpleName: "postgres", Namespace: "official"},
-			version: func(t *testing.T) core.Version {
-				return core.Version{Raw: "1.0.0"}
-			},
-			want: func(t *testing.T) QualifiedVersion {
-				return QualifiedVersion{Name: QualifiedName{SimpleName: "postgres", Namespace: "official"}, Version: core.Version{Raw: "1.0.0"}}
-			},
-			wantErr: assert.NoError,
+			version:       testVersion1,
+			want:          QualifiedVersion{Name: QualifiedName{SimpleName: "postgres", Namespace: "official"}, Version: testVersion1},
+			wantErr:       assert.NoError,
 		},
-		{
-			name:          "create QualifiedVersion with Parse",
-			qualifiedDogu: QualifiedName{SimpleName: "postgres", Namespace: "official"},
-			version: func(t *testing.T) core.Version {
-				version, err := core.ParseVersion("1.2.3")
-				require.NoError(t, err)
-				return version
-			},
-			want: func(t *testing.T) QualifiedVersion {
-				version, err := core.ParseVersion("1.2.3")
-				require.NoError(t, err)
-				return QualifiedVersion{Name: QualifiedName{SimpleName: "postgres", Namespace: "official"}, Version: version}
-			},
-			wantErr: assert.NoError,
-		},
-
 		{
 			name:          "create QualifiedVersion with Parse",
 			qualifiedDogu: QualifiedName{SimpleName: "postgres", Namespace: "official/test"},
-			version: func(t *testing.T) core.Version {
-				version, err := core.ParseVersion("1.2.3")
-				require.NoError(t, err)
-				return version
-			},
-			want: func(t *testing.T) QualifiedVersion {
-				return QualifiedVersion{}
-			},
+			version:       testVersion1,
+			want:          QualifiedVersion{},
 			wantErr: func(t assert.TestingT, err error, i ...interface{}) bool {
 				return assert.ErrorContains(t, err, "dogu name needs to be in the form 'namespace/dogu' but is 'official/test/postgres'")
 			},
@@ -110,11 +87,11 @@ func TestNewQualifiedVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewQualifiedVersion(tt.qualifiedDogu, tt.version(t))
-			if !tt.wantErr(t, err, fmt.Sprintf("NewQualifiedVersion(%v, %v)", tt.qualifiedDogu, tt.version(t))) {
+			got, err := NewQualifiedVersion(tt.qualifiedDogu, tt.version)
+			if !tt.wantErr(t, err, fmt.Sprintf("NewQualifiedVersion(%v, %v)", tt.qualifiedDogu, tt.version)) {
 				return
 			}
-			assert.Equalf(t, tt.want(t), got, "NewQualifiedVersion(%v, %v)", tt.qualifiedDogu, tt.version(t))
+			assert.Equalf(t, tt.want, got, "NewQualifiedVersion(%v, %v)", tt.qualifiedDogu, tt.version)
 		})
 	}
 }
