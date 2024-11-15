@@ -52,8 +52,7 @@ func (name QualifiedName) Validate() error {
 	if name.SimpleName == "" {
 		errorList = append(errorList, fmt.Errorf("dogu name must not be empty"))
 	}
-	splitName := strings.Split(string(name.Namespace), "/")
-	if len(splitName) > 1 {
+	if strings.Contains(string(name.Namespace), "/") {
 		errorList = append(errorList, fmt.Errorf("dogu name needs to be in the form 'namespace/dogu' but is '%s'", name))
 	}
 
