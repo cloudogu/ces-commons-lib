@@ -5,14 +5,14 @@ import "errors"
 type errorType int
 
 const (
-	_ErrNotFound errorType = iota + 1
-	_ErrConflict
-	_ErrConnection
-	_ErrAlreadyExists
-	_ErrGeneric
-	_ErrWatch
-	_ErrUnauthorized
-	_ErrForbidden
+	errNotFound errorType = iota + 1
+	errConflict
+	errConnection
+	errAlreadyExists
+	errGeneric
+	errWatch
+	errUnauthorized
+	errForbidden
 )
 
 var _ error = Error{}
@@ -28,56 +28,56 @@ func (c Error) Error() string {
 
 func NewGenericError(err error) Error {
 	return Error{
-		errType: _ErrGeneric,
+		errType: errGeneric,
 		cause:   err,
 	}
 }
 
 func NewNotFoundError(err error) Error {
 	return Error{
-		errType: _ErrNotFound,
+		errType: errNotFound,
 		cause:   err,
 	}
 }
 
 func NewConflictError(err error) Error {
 	return Error{
-		errType: _ErrConflict,
+		errType: errConflict,
 		cause:   err,
 	}
 }
 
 func NewConnectionError(err error) Error {
 	return Error{
-		errType: _ErrConnection,
+		errType: errConnection,
 		cause:   err,
 	}
 }
 
 func NewAlreadyExistsError(err error) Error {
 	return Error{
-		errType: _ErrAlreadyExists,
+		errType: errAlreadyExists,
 		cause:   err,
 	}
 }
 
 func NewWatchError(err error) Error {
 	return Error{
-		errType: _ErrWatch,
+		errType: errWatch,
 		cause:   err,
 	}
 }
 
 func NewUnauthorizedError(err error) Error {
 	return Error{
-		errType: _ErrUnauthorized,
+		errType: errUnauthorized,
 		cause:   err,
 	}
 }
 
 func NewForbiddenError(err error) Error {
 	return Error{
-		errType: _ErrForbidden,
+		errType: errForbidden,
 		cause:   err,
 	}
 }
@@ -96,33 +96,33 @@ func isError(err error, t errorType) bool {
 }
 
 func IsGenericError(err error) bool {
-	return isError(err, _ErrGeneric)
+	return isError(err, errGeneric)
 }
 
 func IsNotFoundError(err error) bool {
-	return isError(err, _ErrNotFound)
+	return isError(err, errNotFound)
 }
 
 func IsConflictError(err error) bool {
-	return isError(err, _ErrConflict)
+	return isError(err, errConflict)
 }
 
 func IsConnectionError(err error) bool {
-	return isError(err, _ErrConnection)
+	return isError(err, errConnection)
 }
 
 func IsAlreadyExistsError(err error) bool {
-	return isError(err, _ErrAlreadyExists)
+	return isError(err, errAlreadyExists)
 }
 
 func IsWatchError(err error) bool {
-	return isError(err, _ErrWatch)
+	return isError(err, errWatch)
 }
 
 func IsUnauthorizedError(err error) bool {
-	return isError(err, _ErrUnauthorized)
+	return isError(err, errUnauthorized)
 }
 
 func IsForbiddenError(err error) bool {
-	return isError(err, _ErrForbidden)
+	return isError(err, errForbidden)
 }

@@ -9,49 +9,49 @@ func TestNewNotFoundError(t *testing.T) {
 	err := NewNotFoundError(assert.AnError)
 
 	assert.Equal(t, assert.AnError, err.cause)
-	assert.Equal(t, _ErrNotFound, err.errType)
+	assert.Equal(t, errNotFound, err.errType)
 }
 
 func TestNewConflictError(t *testing.T) {
 	err := NewConflictError(assert.AnError)
 
 	assert.Equal(t, assert.AnError, err.cause)
-	assert.Equal(t, _ErrConflict, err.errType)
+	assert.Equal(t, errConflict, err.errType)
 }
 
 func TestNewConnectionError(t *testing.T) {
 	err := NewConnectionError(assert.AnError)
 
 	assert.Equal(t, assert.AnError, err.cause)
-	assert.Equal(t, _ErrConnection, err.errType)
+	assert.Equal(t, errConnection, err.errType)
 }
 
 func TestNewGenericError(t *testing.T) {
 	err := NewGenericError(assert.AnError)
 
 	assert.Equal(t, assert.AnError, err.cause)
-	assert.Equal(t, _ErrGeneric, err.errType)
+	assert.Equal(t, errGeneric, err.errType)
 }
 
 func TestNewWatchError(t *testing.T) {
 	err := NewWatchError(assert.AnError)
 
 	assert.Equal(t, assert.AnError, err.cause)
-	assert.Equal(t, _ErrWatch, err.errType)
+	assert.Equal(t, errWatch, err.errType)
 }
 
 func TestNewUnauthorizedErrorError(t *testing.T) {
 	err := NewUnauthorizedError(assert.AnError)
 
 	assert.Equal(t, assert.AnError, err.cause)
-	assert.Equal(t, _ErrUnauthorized, err.errType)
+	assert.Equal(t, errUnauthorized, err.errType)
 }
 
 func TestNewForbiddenErrorWatchError(t *testing.T) {
 	err := NewForbiddenError(assert.AnError)
 
 	assert.Equal(t, assert.AnError, err.cause)
-	assert.Equal(t, _ErrForbidden, err.errType)
+	assert.Equal(t, errForbidden, err.errType)
 }
 
 func TestError_Error(t *testing.T) {
