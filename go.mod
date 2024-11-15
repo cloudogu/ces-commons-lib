@@ -3,7 +3,7 @@ module github.com/cloudogu/ces-commons-lib
 go 1.23
 
 require (
-	github.com/cloudogu/cesapp-lib v0.14.2
+	github.com/cloudogu/cesapp-lib v0.15.0
 	github.com/stretchr/testify v1.8.1
 )
 
