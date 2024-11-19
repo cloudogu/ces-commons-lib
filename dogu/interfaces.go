@@ -24,7 +24,7 @@ type VersionRegistry interface {
 	// ConnectionError if there are any connection issues.
 	// Generic Error if there are any other issues.
 	GetCurrent(context.Context, SimpleName) (SimpleNameVersion, error)
-	// GetCurrentOfAll returns all current installed dogu version.
+	// GetCurrentOfAll returns all current installed dogu versions.
 	// ConnectionError if there are any connection issues.
 	// Generic Error if there are any other issues.
 	GetCurrentOfAll(context.Context) ([]SimpleNameVersion, error)
@@ -57,7 +57,7 @@ type LocalDoguDescriptorRepository interface {
 	// ConnectionError if there are any connection issues
 	// Generic Error if there are any other issues.
 	Add(context.Context, SimpleName, *core.Dogu) error
-	// DeleteAll deletes all dogu descriptors by name.
+	// DeleteAll deletes all dogu descriptors for a given dogu name.
 	// ConnectionError if there are any connection issues
 	// Generic Error if there are any other issues.
 	DeleteAll(context.Context, SimpleName) error
