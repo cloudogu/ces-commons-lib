@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.2.0] - 2024-11-19
+### Added
+- [#3] Add struct for dogu simple name version and watch results
+
 ## [v0.1.0] - 2024-11-15
 ### Added
 - [#1] Add RemoteDoguDescriptorRepository interface and common errors

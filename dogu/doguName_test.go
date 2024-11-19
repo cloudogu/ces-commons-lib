@@ -95,3 +95,58 @@ func TestNewQualifiedVersion(t *testing.T) {
 		})
 	}
 }
+
+func TestNewSimpleNameVersion(t *testing.T) {
+	testVersion, err := core.ParseVersion("1.0.0-1")
+	require.NoError(t, err)
+	type args struct {
+		name    SimpleName
+		version core.Version
+	}
+	tests := []struct {
+		name string
+		args args
+		want SimpleNameVersion
+	}{
+		{"success", args{"cas", testVersion}, SimpleNameVersion{"cas", testVersion}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, NewSimpleNameVersion(tt.args.name, tt.args.version), "NewSimpleNameVersion(%v, %v)", tt.args.name, tt.args.version)
+		})
+	}
+}
+
+func TestNewCurrentVersionsWatchResult(t *testing.T) {
+	testVersion1, err := core.ParseVersion("1.0.0-1")
+	require.NoError(t, err)
+	testVersion2, err := core.ParseVersion("1.0.0-1")
+	require.NoError(t, err)
+	testVersions1 := map[SimpleName]core.Version{"cas": testVersion1}
+	testVersions2 := map[SimpleName]core.Version{"cas": testVersion2, "redmine": testVersion1}
+	testDiff := []SimpleNameVersion{{"cas", testVersion2}, {"redmine", testVersion1}}
+
+	type args struct {
+		versions     map[SimpleName]core.Version
+		prevVersions map[SimpleName]core.Version
+		diff         []SimpleNameVersion
+		err          error
+	}
+	tests := []struct {
+		name string
+		args args
+		want CurrentVersionsWatchResult
+	}{
+		{"success", args{testVersions2, testVersions1, testDiff, nil}, CurrentVersionsWatchResult{
+			Versions:     testVersions2,
+			PrevVersions: testVersions1,
+			Diff:         testDiff,
+			Err:          nil,
+		}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, NewCurrentVersionsWatchResult(tt.args.versions, tt.args.prevVersions, tt.args.diff, tt.args.err), "NewCurrentVersionsWatchResult(%v, %v, %v, %v)", tt.args.versions, tt.args.prevVersions, tt.args.diff, tt.args.err)
+		})
+	}
+}
