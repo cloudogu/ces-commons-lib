@@ -15,6 +15,18 @@ func (s SimpleName) String() string {
 	return string(s)
 }
 
+type SimpleNameVersion struct {
+	Name    SimpleName
+	Version core.Version
+}
+
+type CurrentVersionsWatchResult struct {
+	Versions     map[SimpleName]core.Version
+	PrevVersions map[SimpleName]core.Version
+	Diff         []SimpleNameVersion
+	Err          error
+}
+
 type QualifiedVersion struct {
 	Name    QualifiedName
 	Version core.Version

@@ -17,3 +17,19 @@ type RemoteDoguDescriptorRepository interface {
 	// Generic Error if there are any other issues
 	Get(context.Context, QualifiedVersion) (*core.Dogu, error)
 }
+
+type VersionRegistry interface {
+	GetCurrent(context.Context, SimpleName) (SimpleNameVersion, error)
+	GetCurrentOfAll(context.Context) ([]SimpleNameVersion, error)
+	IsEnabled(context.Context, SimpleNameVersion) (bool, error)
+	Enable(context.Context, SimpleNameVersion) error
+	WatchAllCurrent(context.Context) (<-chan CurrentVersionsWatchResult, error)
+}
+
+// LocalDoguDescriptorRepository is an append-only Repository, no updates will happen
+type LocalDoguDescriptorRepository interface {
+	Get(context.Context, SimpleNameVersion) (*core.Dogu, error)
+	GetAll(context.Context, []SimpleNameVersion) (map[SimpleNameVersion]*core.Dogu, error)
+	Add(context.Context, SimpleName, *core.Dogu) error
+	DeleteAll(context.Context, SimpleName) error
+}
