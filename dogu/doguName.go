@@ -15,6 +15,34 @@ func (s SimpleName) String() string {
 	return string(s)
 }
 
+type SimpleNameVersion struct {
+	Name    SimpleName
+	Version core.Version
+}
+
+func NewSimpleNameVersion(name SimpleName, version core.Version) SimpleNameVersion {
+	return SimpleNameVersion{Name: name, Version: version}
+}
+
+// CurrentVersionsWatchResult is used to notify users on local dogu version registry changes.
+// It contains all old, current versions and the resulting diff from those versions.
+// Err contains possible errors and should always be checked first before reading the results.
+type CurrentVersionsWatchResult struct {
+	Versions     map[SimpleName]core.Version
+	PrevVersions map[SimpleName]core.Version
+	Diff         []SimpleNameVersion
+	Err          error
+}
+
+func NewCurrentVersionsWatchResult(versions map[SimpleName]core.Version, prevVersions map[SimpleName]core.Version, diff []SimpleNameVersion, err error) CurrentVersionsWatchResult {
+	return CurrentVersionsWatchResult{
+		Versions:     versions,
+		PrevVersions: prevVersions,
+		Diff:         diff,
+		Err:          err,
+	}
+}
+
 type QualifiedVersion struct {
 	Name    QualifiedName
 	Version core.Version
