@@ -24,6 +24,9 @@ func NewSimpleNameVersion(name SimpleName, version core.Version) SimpleNameVersi
 	return SimpleNameVersion{Name: name, Version: version}
 }
 
+// CurrentVersionsWatchResult is used to notify users on local dogu version registry changes.
+// It contains all old, current versions and the resulting diff from those versions.
+// Err contains possible errors and should always be checked first before reading the results.
 type CurrentVersionsWatchResult struct {
 	Versions     map[SimpleName]core.Version
 	PrevVersions map[SimpleName]core.Version
