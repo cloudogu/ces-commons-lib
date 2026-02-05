@@ -1,8 +1,9 @@
 package errors
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewNotFoundError(t *testing.T) {
@@ -341,4 +342,9 @@ func TestIsForbiddenError(t *testing.T) {
 			assert.Equal(t, tc.xResult, IsForbiddenError(tc.err))
 		})
 	}
+}
+
+func TestError_Unwrap(t *testing.T) {
+	sut := Error{cause: assert.AnError}
+	assert.ErrorIs(t, sut, assert.AnError)
 }
