@@ -26,6 +26,10 @@ func (c Error) Error() string {
 	return c.cause.Error()
 }
 
+func (c Error) Unwrap() error {
+	return c.cause
+}
+
 func NewGenericError(err error) Error {
 	return Error{
 		errType: errGeneric,
